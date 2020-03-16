@@ -22,7 +22,7 @@ nnoremap <space> za
 
 set background=dark
 let g:two_firewatch_italics=1
-colorscheme industry
+colorscheme wal
 
 let g:airline_theme='badwolf'
 

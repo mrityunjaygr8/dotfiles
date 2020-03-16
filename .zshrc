@@ -102,8 +102,7 @@ fi
 PATH=$HOME/bin:$PATH
 
 ########################## General Alias ###############################
-alias ll="br -dph"
-alias ls="ls -alt"
+alias ll="ls -alt"
 alias vim="nvim"
 alias edit_vim="nvim .config/nvim/init.vim"
 
@@ -140,3 +139,4 @@ codi() {
 
 source /home/mrityunjaygr8/.config/broot/launcher/bash/br
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+(cat ~/.cache/wal/sequences &)
