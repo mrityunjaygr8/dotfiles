@@ -22,8 +22,30 @@ require("awful.hotkeys_popup.keys")
 -- Multi Monitor Helper
 local xrandr = require("xrandr")
 
+-- Network widgets
+local net_widgets = require("net_widgets")
+
+-- top panel
+require("layout")
+require("modules.notifications")
+require("modules.auto-start")
+require("modules.decorate-client")
+require("modules.battery-notifier")
+-- Custom Network Widget
+function mynetworkmenu()
+    networkmenu = awful.menu({ items = generate_network_menu() })
+    return networkmenu
+end
+
+--mynetworklauncher = awful.widget.launcher({ image = beautiful.network_icon, menu = awful.menu({items = { { "s" , "s" }, { "s" , "s" }, }})})
+function updatenetworkmenu()
+    mynetworklauncher = awful.widget.launcher({ image = beautiful.network_icon,
+    						menu = mynetworkmenu()})
+    return mynetworklauncher
+end
 -- Theme
-local my_first_theme = string.format("%s/.config/awesome/themes/my_first_theme/theme.lua", os.getenv("HOME"))
+local my_first_theme = string.format("%s/.config/awesome/theme/my_first_theme/theme.lua", os.getenv("HOME"))
+print("Testing 123 123 123")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -71,17 +93,17 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
+    --awful.layout.suit.tile.left,
+    --awful.layout.suit.tile.bottom,
+    --awful.layout.suit.tile.top,
+    --awful.layout.suit.fair,
+    --awful.layout.suit.fair.horizontal,
+    --awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.corner.nw,
+    --awful.layout.suit.max.fullscreen,
+    --awful.layout.suit.magnifier,
+    --awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
     -- awful.layout.suit.corner.sw,
     -- awful.layout.suit.corner.se,
@@ -134,7 +156,7 @@ end
 -- wal colorscheme function
 run_wal = function ()
     awful.util.spawn(string.format("%s/wallpaper.sh", os.getenv("HOME")))
-    awesome.restart()
+    beautiful.init(my_first_theme)
 end
 -- Can move window to next and previous screen
 client_move_screen_relatively = function (index_offset)
@@ -185,7 +207,14 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end },
 }
 
+xrand_items = xrandr.menu()
+xrandmenu = {}
+for k1, v1 in ipairs(xrand_items) do
+    xrandmenu[#xrandmenu + 1] = v1
+end
+
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+				    { "Screen Selection", xrandmenu, beautiful.awesome_icon }, 
                                     { "open terminal", terminal }
                                   }
                         })
@@ -202,11 +231,13 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-local battery_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc")
+local battery_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc", beautiful.awesome_icon )
 local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 local volume_bar_widget = require("awesome-wm-widgets.volumebar-widget.volumebar")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+wifi_widget  = require("widgets.wifi")()
+net_wireless = net_widgets.wireless({interface="wlo1"})
 mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
@@ -296,7 +327,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "bottom", screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -319,6 +350,9 @@ awful.screen.connect_for_each_screen(function(s)
 	    }),
 	    ram_widget(),
 	    volume_bar_widget(),
+	    wifi_widget,
+	    --net_wireless,
+	    --updatenetworkmenu(),
             mytextclock,
             s.mylayoutbox,
         },
@@ -436,14 +470,13 @@ globalkeys = gears.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"}),
-    awful.key({ modkey, "Shift", "Control"}, "\\", xrandr.xrandr),
     awful.key({ modkey }, "c", function()
 	    awful.util.spawn(editor_cmd  .. " " .. awful.util.getdir("config") .. "/rc.lua") 
     end),
     awful.key({}, "Print", function ()
 	awful.util.spawn("xfce4-screenshooter")
     end),
-    awful.key({ modkey }, "e", function() awful.util.spawn(terminal .. " -e ranger") end),
+    awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm") end),
     awful.key({ modkey }, "b", function() awful.util.spawn("brave") end),
     awful.key({ modkey, "Control" }, "b", function() awful.util.spawn("brave --incognito") end),
     awful.key({ modkey }, "v", function() awful.util.spawn("clipmenu") end),
@@ -705,3 +738,8 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+
+-- Autostart stuff
+awful.spawn.with_shell("clipmenud")
+--awful.spawn.with_shell("")

@@ -24,7 +24,7 @@ set background=dark
 let g:two_firewatch_italics=1
 colorscheme wal
 
-let g:airline_theme='badwolf'
+" let g:airline_theme='badwolf'
 
 
 autocmd! User GoyoEnter Limelight
