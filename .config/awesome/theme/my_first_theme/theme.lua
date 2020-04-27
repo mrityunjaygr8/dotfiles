@@ -10,10 +10,14 @@ local theme                                     = {}
 local gfs = require("gears.filesystem")
 local themes_path = gfs.get_configuration_dir() .. "/theme"
 local icon_dir					= themes_path .. "/icons/"
+local titlebar_theme = "stoplight"
+local titlebar_icon_path = icon_dir .. "titlebar/" .. titlebar_theme .. '/'
+local tip = titlebar_icon_path
+
 theme.dir                                       = themes_path .. "/my_first_theme/"
 theme.icons					= icon_dir
 theme.wallpaper                                 = pywal.wallpaper
-theme.font                                      = "Iosevka 12"
+theme.font                                      = "Lato 12"
 theme.fg_normal                                 = pywal.special.foreground
 theme.fg_focus                                  = pywal.colors.color0
 theme.fg_urgent                                 = pywal.colors.color0
@@ -43,4 +47,78 @@ theme.layout_max				= theme.icons .. 'layouts/max.svg'
 theme.layout_tile				= theme.icons .. 'layouts/tile.svg'
 theme.layout_dwindle 				= theme.icons .. 'layouts/dwindle.svg'
 theme.layout_floating 				= theme.icons .. 'layouts/floating.svg'
+
+
+-- Titlebar icons
+-- Titlebar
+	
+theme.titlebar_size = dpi(34)
+--theme.titlebar_bg_focus = beautiful.gtk.get_theme_variables().bg_color:sub(1,7) .. '66'
+--theme.titlebar_bg_normal = beautiful.gtk.get_theme_variables().base_color:sub(1,7) .. '66'
+--theme.titlebar_fg_focus = beautiful.gtk.get_theme_variables().fg_color .. '00'
+--theme.titlebar_fg_normal = beautiful.gtk.get_theme_variables().fg_color .. '00'
+--
+-- Close Button
+theme.titlebar_close_button_normal = tip .. "close_normal.svg"
+theme.titlebar_close_button_focus  = tip .. "close_focus.svg"
+
+-- Minimize Button
+theme.titlebar_minimize_button_normal = tip .. "minimize_normal.svg"
+theme.titlebar_minimize_button_focus  = tip .. "minimize_focus.svg"
+
+-- Ontop Button
+theme.titlebar_ontop_button_normal_inactive = tip .. "ontop_normal_inactive.svg"
+theme.titlebar_ontop_button_focus_inactive  = tip .. "ontop_focus_inactive.svg"
+theme.titlebar_ontop_button_normal_active = tip .. "ontop_normal_active.svg"
+theme.titlebar_ontop_button_focus_active  = tip .. "ontop_focus_active.svg"
+
+-- Sticky Button
+theme.titlebar_sticky_button_normal_inactive = tip .. "sticky_normal_inactive.svg"
+theme.titlebar_sticky_button_focus_inactive  = tip .. "sticky_focus_inactive.svg"
+theme.titlebar_sticky_button_normal_active = tip .. "sticky_normal_active.svg"
+theme.titlebar_sticky_button_focus_active  = tip .. "sticky_focus_active.svg"
+
+-- Floating Button
+theme.titlebar_floating_button_normal_inactive = tip .. "floating_normal_inactive.svg"
+theme.titlebar_floating_button_focus_inactive  = tip .. "floating_focus_inactive.svg"
+theme.titlebar_floating_button_normal_active = tip .. "floating_normal_active.svg"
+theme.titlebar_floating_button_focus_active  = tip .. "floating_focus_active.svg"
+
+-- Maximized Button
+theme.titlebar_maximized_button_normal_inactive = tip .. "maximized_normal_inactive.svg"
+theme.titlebar_maximized_button_focus_inactive  = tip .. "maximized_focus_inactive.svg"
+theme.titlebar_maximized_button_normal_active = tip .. "maximized_normal_active.svg"
+theme.titlebar_maximized_button_focus_active  = tip .. "maximized_focus_active.svg"
+
+-- Hovered Close Button
+theme.titlebar_close_button_normal_hover = tip .. "close_normal_hover.svg"
+theme.titlebar_close_button_focus_hover  = tip .. "close_focus_hover.svg"
+
+-- Hovered Minimize Buttin
+theme.titlebar_minimize_button_normal_hover = tip .. "minimize_normal_hover.svg"
+theme.titlebar_minimize_button_focus_hover  = tip .. "minimize_focus_hover.svg"
+
+-- Hovered Ontop Button
+theme.titlebar_ontop_button_normal_inactive_hover = tip .. "ontop_normal_inactive_hover.svg"
+theme.titlebar_ontop_button_focus_inactive_hover  = tip .. "ontop_focus_inactive_hover.svg"
+theme.titlebar_ontop_button_normal_active_hover = tip .. "ontop_normal_active_hover.svg"
+theme.titlebar_ontop_button_focus_active_hover  = tip .. "ontop_focus_active_hover.svg"
+
+-- Hovered Sticky Button
+theme.titlebar_sticky_button_normal_inactive_hover = tip .. "sticky_normal_inactive_hover.svg"
+theme.titlebar_sticky_button_focus_inactive_hover  = tip .. "sticky_focus_inactive_hover.svg"
+theme.titlebar_sticky_button_normal_active_hover = tip .. "sticky_normal_active_hover.svg"
+theme.titlebar_sticky_button_focus_active_hover  = tip .. "sticky_focus_active_hover.svg"
+
+-- Hovered Floating Button
+theme.titlebar_floating_button_normal_inactive_hover = tip .. "floating_normal_inactive_hover.svg"
+theme.titlebar_floating_button_focus_inactive_hover  = tip .. "floating_focus_inactive_hover.svg"
+theme.titlebar_floating_button_normal_active_hover = tip .. "floating_normal_active_hover.svg"
+theme.titlebar_floating_button_focus_active_hover  = tip .. "floating_focus_active_hover.svg"
+
+-- Hovered Maximized Button
+theme.titlebar_maximized_button_normal_inactive_hover = tip .. "maximized_normal_inactive_hover.svg"
+theme.titlebar_maximized_button_focus_inactive_hover  = tip .. "maximized_focus_inactive_hover.svg"
+theme.titlebar_maximized_button_normal_active_hover = tip .. "maximized_normal_active_hover.svg"
+theme.titlebar_maximized_button_focus_active_hover  = tip .. "maximized_focus_active_hover.svg"
 return theme

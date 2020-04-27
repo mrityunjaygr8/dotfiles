@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -8,7 +15,7 @@ export ZSH="/home/mrityunjaygr8/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="spaceship"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,7 +75,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions docker)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,12 +106,13 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ########################## Path Addition ###############################
-PATH=$HOME/bin:$PATH
+PATH=$HOME/.gem/ruby/2.7.0/bin:$HOME/bin:$PATH
 
 ########################## General Alias ###############################
 alias ll="ls -alt"
 alias vim="nvim"
 alias edit_vim="nvim .config/nvim/init.vim"
+alias netstat="ss"
 
 ########################## Spaceship Config ############################
 #SPACESHIP_TIME_SHOW=true
@@ -119,6 +127,7 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source /home/mrityunjaygr8/.local/bin/virtualenvwrapper.sh 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export GOPATH=$HOME/go
 
 
 export TERM=xterm-256color
@@ -136,7 +145,13 @@ codi() {
     Codi $syntax" "$@"
 }
 
+function gdiff () { diff -u $@ | colordiff | less -R; }
+
+
 
 source /home/mrityunjaygr8/.config/broot/launcher/bash/br
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 (cat ~/.cache/wal/sequences &)
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

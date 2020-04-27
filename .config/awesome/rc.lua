@@ -23,7 +23,7 @@ require("awful.hotkeys_popup.keys")
 local xrandr = require("xrandr")
 
 -- Network widgets
-local net_widgets = require("net_widgets")
+--local net_widgets = require("net_widgets")
 
 -- top panel
 require("layout")
@@ -31,21 +31,21 @@ require("modules.notifications")
 require("modules.auto-start")
 require("modules.decorate-client")
 require("modules.battery-notifier")
+require("modules.titlebar")
 -- Custom Network Widget
-function mynetworkmenu()
-    networkmenu = awful.menu({ items = generate_network_menu() })
-    return networkmenu
-end
+--function mynetworkmenu()
+--    networkmenu = awful.menu({ items = generate_network_menu() })
+--    return networkmenu
+--end
 
 --mynetworklauncher = awful.widget.launcher({ image = beautiful.network_icon, menu = awful.menu({items = { { "s" , "s" }, { "s" , "s" }, }})})
-function updatenetworkmenu()
-    mynetworklauncher = awful.widget.launcher({ image = beautiful.network_icon,
-    						menu = mynetworkmenu()})
-    return mynetworklauncher
-end
+--function updatenetworkmenu()
+--    mynetworklauncher = awful.widget.launcher({ image = beautiful.network_icon,
+--    						menu = mynetworkmenu()})
+--    return mynetworklauncher
+--end
 -- Theme
 local my_first_theme = string.format("%s/.config/awesome/theme/my_first_theme/theme.lua", os.getenv("HOME"))
-print("Testing 123 123 123")
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -65,7 +65,7 @@ do
 
         naughty.notify({ preset = naughty.config.presets.critical,
                          title = "Oops, an error happened!",
-                         text = tostring(err) })
+                         message = tostring(err) })
         in_error = false
     end)
 end
@@ -78,9 +78,9 @@ beautiful.init(my_first_theme)
 
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvt -e zsh"
 editor = os.getenv("EDITOR") or "nvim"
-editor_cmd = terminal .. " -e " .. editor
+editor_cmd = terminal .. " -i -c" .. editor
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -93,20 +93,8 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    --awful.layout.suit.tile.left,
-    --awful.layout.suit.tile.bottom,
-    --awful.layout.suit.tile.top,
-    --awful.layout.suit.fair,
-    --awful.layout.suit.fair.horizontal,
-    --awful.layout.suit.spiral,
     awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
-    --awful.layout.suit.max.fullscreen,
-    --awful.layout.suit.magnifier,
-    --awful.layout.suit.corner.nw,
-    -- awful.layout.suit.corner.ne,
-    -- awful.layout.suit.corner.sw,
-    -- awful.layout.suit.corner.se,
 }
 -- }}}
 --
@@ -231,13 +219,10 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-local battery_widget = require("awesome-wm-widgets.batteryarc-widget.batteryarc", beautiful.awesome_icon )
-local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
+-- local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
 local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
 local volume_bar_widget = require("awesome-wm-widgets.volumebar-widget.volumebar")
 local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
-wifi_widget  = require("widgets.wifi")()
-net_wireless = net_widgets.wireless({interface="wlo1"})
 mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
@@ -300,7 +285,7 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+    awful.tag({ "I", "II", "III", "IV", "V"}, s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -312,12 +297,6 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 3, function () awful.layout.inc(-1) end),
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist {
-        screen  = s,
-        filter  = awful.widget.taglist.filter.all,
-        buttons = taglist_buttons
-    }
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist {
@@ -334,15 +313,11 @@ awful.screen.connect_for_each_screen(function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
         },
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-	    battery_widget(),
-	    cpu_widget(),
+--	    cpu_widget(),
 	    brightness_widget({
 		get_brightness_cmd = 'xbacklight -get',
 		inc_brightness_cmd = 'xbacklight -inc 5',
@@ -350,11 +325,6 @@ awful.screen.connect_for_each_screen(function(s)
 	    }),
 	    ram_widget(),
 	    volume_bar_widget(),
-	    wifi_widget,
-	    --net_wireless,
-	    --updatenetworkmenu(),
-            mytextclock,
-            s.mylayoutbox,
         },
     }
 end)
@@ -477,8 +447,8 @@ globalkeys = gears.table.join(
 	awful.util.spawn("xfce4-screenshooter")
     end),
     awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm") end),
-    awful.key({ modkey }, "b", function() awful.util.spawn("brave") end),
-    awful.key({ modkey, "Control" }, "b", function() awful.util.spawn("brave --incognito") end),
+    awful.key({ modkey }, "b", function() awful.util.spawn("firefox") end),
+    awful.key({ modkey, "Control" }, "b", function() awful.util.spawn("firefox --private-window") end),
     awful.key({ modkey }, "v", function() awful.util.spawn("clipmenu") end),
     awful.key({ }, "XF86AudioRaiseVolume", function() 
 	awful.util.spawn("amixer -q sset Master 5%+")
@@ -496,8 +466,11 @@ globalkeys = gears.table.join(
     awful.key({}, "XF86MonBrightnessDown", function()
 	awful.util.spawn("xbacklight -dec 5")
     end),
-    awful.key({"Mod1"}, "space", function()
-	awful.util.spawn("rofi -show combi")
+    awful.key({ "Mod1" }, "space", function()
+	awful.util.spawn(string.format("%s/.config/rofi/launchers/launcher.sh", os.getenv("HOME")))
+    end),
+    awful.key({ modkey, "Control", "Shift"}, "q", function()
+	awful.util.spawn(string.format("%s/.config/rofi/scripts/powermenu.sh", os.getenv("HOME")))
     end)
 )
 
@@ -704,30 +677,30 @@ client.connect_signal("request::titlebars", function(c)
         end)
     )
 
-    awful.titlebar(c) : setup {
-        { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
-        },
-        { -- Middle
-            { -- Title
-                align  = "center",
-                widget = awful.titlebar.widget.titlewidget(c)
-            },
-            buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
-        },
-        { -- Right
-            awful.titlebar.widget.floatingbutton (c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton   (c),
-            awful.titlebar.widget.ontopbutton    (c),
-            awful.titlebar.widget.closebutton    (c),
-            layout = wibox.layout.fixed.horizontal()
-        },
-        layout = wibox.layout.align.horizontal
-    }
+    --awful.titlebar(c) : setup {
+    --    { -- Left
+    --        awful.titlebar.widget.iconwidget(c),
+    --        buttons = buttons,
+    --        layout  = wibox.layout.fixed.horizontal
+    --    },
+    --    { -- Middle
+    --        { -- Title
+    --            align  = "center",
+    --            widget = awful.titlebar.widget.titlewidget(c)
+    --        },
+    --        buttons = buttons,
+    --        layout  = wibox.layout.flex.horizontal
+    --    },
+    --    { -- Right
+    --        awful.titlebar.widget.floatingbutton (c),
+    --        awful.titlebar.widget.maximizedbutton(c),
+    --        awful.titlebar.widget.stickybutton   (c),
+    --        awful.titlebar.widget.ontopbutton    (c),
+    --        awful.titlebar.widget.closebutton    (c),
+    --        layout = wibox.layout.fixed.horizontal()
+    --    },
+    --    layout = wibox.layout.align.horizontal
+    --}
 end)
 
 -- Enable sloppy focus, so that focus follows mouse.

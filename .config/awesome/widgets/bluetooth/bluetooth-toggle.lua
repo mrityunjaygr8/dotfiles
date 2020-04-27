@@ -6,7 +6,7 @@ local naughty = require('naughty')
 local watch = awful.widget.watch
 local dpi = require('beautiful').xresources.apply_dpi
 
-local clickable_container = require('widget.bluetooth.clickable-container')
+local clickable_container = require('widgets.bluetooth.clickable-container')
 
 local config_dir = gears.filesystem.get_configuration_dir()
 local widget_icon_dir = config_dir .. 'widgets/bluetooth/icons/'

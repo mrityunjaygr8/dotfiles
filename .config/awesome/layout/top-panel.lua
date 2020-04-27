@@ -292,14 +292,19 @@ local TopPanel = function(s, offset)
 
 --	s.tray_toggler  = require('widget.tray-toggler')
 --	s.updater 		= require('widget.package-updater')()
---	s.screen_rec 	= require('widget.screen-recorder')()
+	s.screen_rec 	= require('widgets.screen-recorder')()
 --	s.music       	= require('widget.music')()
 	s.bluetooth   	= require('widgets.bluetooth')()
 	s.wifi        	= require('widgets.wifi')()
 	s.battery     	= require('widgets.battery')()
 --	s.search      	= require('widget.search-apps')()
 --	s.r_dashboard 	= require('widget.right-dashboard')()
---	s.brightness 	= require('widgets.brightness.brightness-slider')
+	s.volume 	= require('widgets.volume.volume-slider')
+s.mytaglist = awful.widget.taglist {
+	screen  = s,
+	filter  = awful.widget.taglist.filter.all,
+	buttons = taglist_buttons
+}
 
 
 	panel : setup {
@@ -307,8 +312,7 @@ local TopPanel = function(s, offset)
 		expand = "none",
 		{
 			layout = wibox.layout.fixed.horizontal,
-			task_list(s),
-			s.add_button
+			s.mytaglist,
 		}, 
 		s.clock_widget,
 		{
@@ -319,17 +323,12 @@ local TopPanel = function(s, offset)
 				margins = dpi(5),
 				widget = wibox.container.margin
 			},
---			s.tray_toggler,
---			s.updater,
---			s.screen_rec,
---			s.music,
+			-- s.volume,
+			s.screen_rec,
 			s.bluetooth,
 			s.wifi,
---			s.brightness,
 			s.battery,
---			s.search,
 			layout_box(s)
---			s.r_dashboard
 		}
 	}
 

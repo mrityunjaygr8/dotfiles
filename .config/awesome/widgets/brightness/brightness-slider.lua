@@ -81,16 +81,16 @@ brightness_slider:buttons(
 	)
 )
 
+local get_brightness = function(stdout)
+	local brightness = string.match(stdout, '(%d+)')
+	brightness_slider:set_value(tonumber(brightness))
+	return brightness_slider
+end
 
 local update_slider = function()
 	awful.spawn.easy_async_with_shell(
 		"xbacklight -get", 
-		function(stdout)
-
-			local brightness = string.match(stdout, '(%d+)')
-			
-			brightness_slider:set_value(tonumber(brightness))
-		end
+		get_brightness(stdout)
 	)
 end
 
