@@ -9,6 +9,7 @@ local awful = require('awful')
 local wibox = require('wibox')
 local gears = require('gears')
 local naughty = require('naughty') 
+local pywal = require ("theme.my_first_theme.pywal")
 
 local watch = awful.widget.watch
 
@@ -34,7 +35,7 @@ local return_button = function()
 		wibox.widget {
 		{
 			id = 'icon',
-			image = widget_icon_dir .. 'wifi-strength-off' .. '.svg',
+			image = gears.color.recolor_image(widget_icon_dir .. 'wifi-strength-off' .. '.svg', pywal.colors.color0),
 			widget = wibox.widget.imagebox,
 			resize = true
 		},
@@ -47,7 +48,8 @@ local return_button = function()
 			margins = dpi(7),
 			widget = wibox.container.margin
 		},
-		widget = clickable_container
+		widget = clickable_container,
+		bg = pywal.colors.color13
 	}
 	
 	widget_button:buttons(
@@ -169,7 +171,7 @@ local return_button = function()
 				widget_icon_name = widget_icon_name .. '-' .. wifi_strength_rounded
 			
 				-- Update wifi strength icon
-				widget.icon:set_image(widget_icon_dir .. widget_icon_name .. '.svg')
+				widget.icon:set_image(gears.color.recolor_image(widget_icon_dir .. widget_icon_name .. '.svg', pywal.colors.color0))
 			
 			else
 				connected = false
@@ -178,7 +180,7 @@ local return_button = function()
 				notify_connection()
 			
 				-- Update wifi strength to off
-				widget.icon:set_image(widget_icon_dir .. widget_icon_name .. '-off' .. '.svg')
+				widget.icon:set_image(gears.color.recolor_image(widget_icon_dir .. widget_icon_name .. '-off' .. '.svg', pywal.colors.color0))
 			
 			end
 

@@ -8,6 +8,7 @@ local awful = require('awful')
 local gears = require('gears')
 local naughty = require('naughty')
 local wibox = require('wibox')
+local pywal = require ("theme.my_first_theme.pywal")
 
 local watch = awful.widget.watch
 
@@ -30,7 +31,7 @@ local return_button = function()
 		wibox.widget {
 		{
 			id = 'icon',
-			image = widget_icon_dir .. 'bluetooth-off' .. '.svg',
+			image = gears.color.recolor_image(widget_icon_dir .. 'bluetooth-off' .. '.svg', pywal.colors.color0),
 			widget = wibox.widget.imagebox,
 			resize = true
 		},
@@ -43,7 +44,8 @@ local return_button = function()
 			margins = dpi(7),
 			widget = wibox.container.margin
 		},
-		widget = clickable_container
+		widget = clickable_container,
+		bg = pywal.colors.color13
 	}
 
 	widget_button:buttons(
@@ -66,8 +68,6 @@ local return_button = function()
 		align = 'right',
 		timer_function = function()
 			if checker then
-				print("=============asdasdasdasdasdasd=====================")
-				print(checker)
 				return 'Bluetooth is on'
 			else
 				return 'Bluetooth is off'
@@ -89,7 +89,7 @@ local return_button = function()
 				widget_icon_name = 'bluetooth'
 			end
 
-			widget.icon:set_image(widget_icon_dir .. widget_icon_name .. '.svg')
+			widget.icon:set_image(gears.color.recolor_image(widget_icon_dir .. widget_icon_name .. '.svg', pywal.colors.color0))
 
 			collectgarbage('collect')
 		end,

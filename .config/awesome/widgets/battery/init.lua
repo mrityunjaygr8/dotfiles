@@ -3,6 +3,7 @@ local wibox = require('wibox')
 local awful = require('awful')
 local gears = require('gears')
 local naughty = require('naughty')
+local pywal = require ("theme.my_first_theme.pywal")
 
 local watch = awful.widget.watch
 
@@ -16,18 +17,17 @@ local widget_icon_dir = config_dir .. 'widgets/battery/icons/'
 
 
 local return_button = function()
-
 	local battery_imagebox = wibox.widget {
 		nil,
 		{
 			id = 'icon',
-			image = widget_icon_dir .. 'battery-standard' .. '.svg',
+			image = gears.color.recolor_image(widget_icon_dir .. 'battery-standard' .. '.svg', pywal.colors.color13),
 			widget = wibox.widget.imagebox,
-			resize = true
+			resize = true,
 		},
 		nil,
 		expand = 'none',
-		layout = wibox.layout.align.vertical
+		layout = wibox.layout.align.vertical,
 	}
 
 	local battery_percentage_text = wibox.widget {
@@ -37,7 +37,7 @@ local return_button = function()
 		align = 'center',
 		valign = 'center',
 		visible = false,
-		widget = wibox.widget.textbox
+		widget = wibox.widget.textbox,
 	}
 
 
@@ -45,7 +45,8 @@ local return_button = function()
 		layout = wibox.layout.fixed.horizontal,
 		spacing = dpi(0),
 		battery_imagebox,
-		battery_percentage_text
+		battery_percentage_text,
+		fg = pywal.colors.color13
 	}
 
 
@@ -55,7 +56,9 @@ local return_button = function()
 			margins = dpi(7),
 			widget = wibox.container.margin
 		},
-		widget = clickable_container
+		widget = clickable_container,
+		bg = pywal.colors.color13,
+		fg = pywal.colors.color0,
 	}
 
 	battery_button:buttons(
@@ -226,7 +229,7 @@ local return_button = function()
 			-- Debugger ;)
 			-- naughty.notification({message=widget_icon_dir .. icon_name .. '.svg'})
 
-			battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. icon_name .. '.svg'))
+			battery_imagebox.icon:set_image(gears.color.recolor_image(gears.surface.load(widget_icon_dir .. icon_name .. '.svg'), pywal.colors.color0))
 
 			collectgarbage('collect')
 		end)
@@ -242,7 +245,7 @@ local return_button = function()
 			battery_percentage_text.visible = false
 
 			battery_tooltip:set_text('No battery detected!')
-			battery_imagebox.icon:set_image(gears.surface.load(widget_icon_dir .. 'battery-unknown' .. '.svg'))
+			battery_imagebox.icon:set_image(gears.color.recolor_image(gears.surface.load(widget_icon_dir .. 'battery-unknown' .. '.svg'), pywal.colors.color13))
 			
 			return
 		

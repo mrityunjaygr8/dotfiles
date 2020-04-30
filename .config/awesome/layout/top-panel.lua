@@ -2,8 +2,10 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
+local pywal = require ("theme.my_first_theme.pywal")
 
 local icons = require('theme.icons')
+-- local theme = require('theme.')
 local dpi = beautiful.xresources.apply_dpi
 
 local clickable_container = require('widgets.clickable-container')
@@ -12,7 +14,6 @@ local task_list = require('widgets.task-list')
 
 
 local TopPanel = function(s, offset)
-
 	local offsetx = 0
 	if offset == true then
 		offsetx = dpi(45)
@@ -28,8 +29,7 @@ local TopPanel = function(s, offset)
 		x = s.geometry.x + offsetx,
 		y = s.geometry.y,
 		stretch = false,
-		bg = beautiful.background,
-		fg = beautiful.fg_normal
+		bg = "#ffffff00",
 	}
 	
 
@@ -98,9 +98,10 @@ local TopPanel = function(s, offset)
 			{
 				awful.widget.layoutbox(s),
 				margins = dpi(7),
-				widget = wibox.container.margin
+				widget = wibox.container.margin,
 			},
-			widget = clickable_container
+			widget = clickable_container,
+			bg = pywal.colors.color13,
 		}
 		layoutbox:buttons(
 			awful.util.table.join(
@@ -139,7 +140,7 @@ local TopPanel = function(s, offset)
 
 
 	s.clock_widget = wibox.widget.textclock(
-		'<span font="Iosevka Bold 11">%X %x</span>',
+		'<span font="Iosevka Bold 11">%a %d-%m-%Y, %H:%M</span>',
 		1
 	)
 
@@ -147,9 +148,11 @@ local TopPanel = function(s, offset)
 		{
 			s.clock_widget,
 			margins = dpi(7),
-			widget = wibox.container.margin
+			widget = wibox.container.margin,
 		},
-		widget = clickable_container
+		widget = clickable_container,
+		bg = pywal.colors.color13,
+		fg = pywal.colors.color0
 	}
 
 
@@ -286,7 +289,8 @@ local TopPanel = function(s, offset)
 		base_size = 20,
 		horizontal = true,
 		screen = 'primary',
-		widget = wibox.widget.systray
+		widget = wibox.widget.systray,
+		bg = pywal.colors.color13
 	}
 
 
@@ -303,13 +307,15 @@ local TopPanel = function(s, offset)
 s.mytaglist = awful.widget.taglist {
 	screen  = s,
 	filter  = awful.widget.taglist.filter.all,
-	buttons = taglist_buttons
+	buttons = taglist_buttons,
+	bg = "#ffffff",
+	fg = "#000000"
 }
-
 
 	panel : setup {
 		layout = wibox.layout.align.horizontal,
 		expand = "none",
+		fg = pywal.colors.color13,
 		{
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
@@ -317,18 +323,18 @@ s.mytaglist = awful.widget.taglist {
 		s.clock_widget,
 		{
 			layout = wibox.layout.fixed.horizontal,
-			spacing = dpi(5),
+			-- spacing = dpi(5),
 			{
 				s.systray,
 				margins = dpi(5),
-				widget = wibox.container.margin
+				widget = wibox.container.margin,
 			},
 			-- s.volume,
 			s.screen_rec,
 			s.bluetooth,
 			s.wifi,
-			s.battery,
-			layout_box(s)
+			s.battery,				
+			layout_box(s),
 		}
 	}
 
