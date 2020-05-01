@@ -220,10 +220,10 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 -- local cpu_widget = require("awesome-wm-widgets.cpu-widget.cpu-widget")
-local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
-local volume_bar_widget = require("awesome-wm-widgets.volumebar-widget.volumebar")
-local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
-mytextclock = wibox.widget.textclock()
+-- local brightness_widget = require("awesome-wm-widgets.brightness-widget.brightness")
+-- local volume_bar_widget = require("awesome-wm-widgets.volumebar-widget.volumebar")
+-- local ram_widget = require("awesome-wm-widgets.ram-widget.ram-widget")
+-- mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -306,7 +306,7 @@ awful.screen.connect_for_each_screen(function(s)
     }
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "bottom", screen = s })
+    s.mywibox = awful.wibar({ position = "bottom", screen = s , bg = "#ffffff00"})
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -317,16 +317,10 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
---	    cpu_widget(),
-	    brightness_widget({
-		get_brightness_cmd = 'xbacklight -get',
-		inc_brightness_cmd = 'xbacklight -inc 5',
-		dec_brightness_cmd = 'xbacklight -dec 5'
-	    }),
-	    ram_widget(),
-	    volume_bar_widget(),
         },
     }
+
+    s.padding = {left=s.padding.left + 10, right=s.padding.right + 10, top=s.padding.top + 15, bottom=s.padding.bottom + 10}
 end)
 -- }}}
 

@@ -25,9 +25,9 @@ local TopPanel = function(s, offset)
 		screen = s,
 		type = 'dock',
 		height = dpi(28),
-		width = s.geometry.width - offsetx,
-		x = s.geometry.x + offsetx,
-		y = s.geometry.y,
+		width = s.geometry.width - offsetx - dpi(10),
+		x = s.geometry.x + offsetx + dpi(5),
+		y = s.geometry.y + dpi(5),
 		stretch = false,
 		bg = "#ffffff00",
 	}
@@ -35,7 +35,8 @@ local TopPanel = function(s, offset)
 
 	panel:struts
 	{
-		top = dpi(28)
+		top = dpi(28),
+		-- bottom = s.geometry.y - dpi(10)
 	}
 
 
@@ -304,6 +305,7 @@ local TopPanel = function(s, offset)
 --	s.search      	= require('widget.search-apps')()
 --	s.r_dashboard 	= require('widget.right-dashboard')()
 	s.volume 	= require('widgets.volume.volume-slider')
+	volume_bar_widget = require("awesome-wm-widgets.volumebar-widget.volumebar")()
 s.mytaglist = awful.widget.taglist {
 	screen  = s,
 	filter  = awful.widget.taglist.filter.all,
@@ -330,6 +332,12 @@ s.mytaglist = awful.widget.taglist {
 				widget = wibox.container.margin,
 			},
 			-- s.volume,
+			-- volume_bar_widget,
+			{
+				wibox.container.margin(volume_bar_widget, dpi(5), dpi(5)),
+				widget = clickable_container,
+				bg = pywal.colors.color13
+			},
 			s.screen_rec,
 			s.bluetooth,
 			s.wifi,
