@@ -114,10 +114,6 @@ alias vim="nvim"
 alias edit_vim="nvim .config/nvim/init.vim"
 alias netstat="ss"
 
-########################## Spaceship Config ############################
-#SPACESHIP_TIME_SHOW=true
-SPACESHIP_CHAR_SYMBOL="〉"
-
 ########################## Node & NVM ##################################
 source /usr/share/nvm/init-nvm.sh
 
@@ -152,6 +148,7 @@ function gdiff () { diff -u $@ | colordiff | less -R; }
 source /home/mrityunjaygr8/.config/broot/launcher/bash/br
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 (cat ~/.cache/wal/sequences &)
+perl $HOME/pacman_updates.pl
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
