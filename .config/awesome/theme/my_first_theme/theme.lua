@@ -46,7 +46,7 @@ theme.menu_height                               = dpi(30)
 theme.menu_width                                = dpi(200)
 theme.tasklist_plain_task_name                  = false
 theme.tasklist_disable_icon                     = false
-theme.useless_gap                               = 0
+theme.useless_gap                               = 5
 
 -- Icon Theme
 theme.icon_theme				= "Papirus"
