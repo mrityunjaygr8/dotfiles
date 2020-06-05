@@ -441,8 +441,8 @@ globalkeys = gears.table.join(
 	awful.util.spawn("xfce4-screenshooter")
     end),
     awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm") end),
-    awful.key({ modkey }, "b", function() awful.util.spawn("firefox") end),
-    awful.key({ modkey, "Control" }, "b", function() awful.util.spawn("firefox --private-window") end),
+    awful.key({ modkey }, "b", function() awful.util.spawn("firefox-developer-edition") end),
+    awful.key({ modkey, "Control" }, "b", function() awful.util.spawn("firefox-developer-edition --private-window") end),
     awful.key({ modkey }, "v", function() awful.util.spawn("clipmenu") end),
     awful.key({ }, "XF86AudioRaiseVolume", function() 
 	awful.util.spawn("amixer -q sset Master 5%+")
