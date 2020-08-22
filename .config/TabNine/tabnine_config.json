@@ -22,5 +22,7 @@
   "enable_power_saving_mode": false,
   "rate_limit_interval_seconds": null,
   "rate_limit_amount": null,
-  "generation": 0
+  "generation": 0,
+  "local_model_size": null,
+  "local_indexing": null
 }
