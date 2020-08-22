@@ -113,6 +113,67 @@ alias ll="ls -alt"
 alias vim="nvim"
 alias edit_vim="nvim .config/nvim/init.vim"
 alias netstat="ss"
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias wdil="history | grep"
+alias please="sudo !!"
+
+### Pipe aliases
+alias -g L="| less"
+alias -g H="| head"
+alias -g T="| tail"
+alias -g TF="| tail -f"
+alias -g G="| grep"
+
+### navigation aliases
+alias ..='cd ..' 
+alias ...='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../..'
+alias .5='cd ../../../..'
+alias .6='cd ../../../../..'
+
+
+# pacman and yay
+alias pacsyu='sudo pacman -Syyu'                 # update only standard pkgs
+alias yaysua="yay -Sua --noconfirm"              # update only AUR pkgs
+alias yaysyu="yay -Syu --noconfirm"              # update standard pkgs and AUR pkgs
+alias unlock="sudo rm /var/lib/pacman/db.lck"    # remove pacman lock
+alias cleanup='sudo pacman -Rns $(pacman -Qtdq)' # remove orphaned packages
+
+# Colorize grep output (good for log files)
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# adding flags
+alias cp="cp -i"                          # confirm before overwriting something
+alias mv="mv -i"
+alias rm="rm -I"
+alias df='df -h'                          # human-readable sizes
+alias free='free -h'                      # show human closest readable size
+
+
+## get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4'
+alias psmem10='ps auxf | sort -nr -k 4 | head -10'
+
+## get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3'
+alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
+
+
+# git
+alias gaddup='git add -u'
+alias gaddall='git add .'
+alias gbranch='git branch'
+alias gcheckout='git checkout'
+alias gcommit='git commit -m'
+alias gfetch='git fetch'
+alias gpull='git pull origin'
+alias gpush='git push origin'
+alias gstatus='git status'
+alias gtag='git tag'
+alias gnewtag='git tag -a'
 
 ########################## Node & NVM ##################################
 source /usr/share/nvm/init-nvm.sh
@@ -146,9 +207,36 @@ function gdiff () { diff -u $@ | colordiff | less -R; }
 
 
 source /home/mrityunjaygr8/.config/broot/launcher/bash/br
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 (cat ~/.cache/wal/sequences &)
-perl $HOME/pacman_updates.pl
+
+
+### ARCHIVE EXTRACTION
+# usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *.tar.zst)   unzstd $1    ;;      
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
