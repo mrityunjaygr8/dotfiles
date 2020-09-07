@@ -78,7 +78,7 @@ beautiful.init(my_first_theme)
 
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt -e zsh"
+terminal = "alacritty -e zsh"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -i -c" .. editor
 
@@ -440,7 +440,7 @@ globalkeys = gears.table.join(
     awful.key({}, "Print", function ()
 	awful.util.spawn("xfce4-screenshooter")
     end),
-    awful.key({ modkey }, "e", function() awful.util.spawn("pcmanfm") end),
+    awful.key({ modkey }, "e", function() awful.util.spawn("thunar") end),
     awful.key({ modkey }, "b", function() awful.util.spawn("firefox-developer-edition") end),
     awful.key({ modkey, "Control" }, "b", function() awful.util.spawn("firefox-developer-edition --private-window") end),
     awful.key({ modkey }, "v", function() awful.util.spawn("clipmenu") end),
@@ -624,6 +624,9 @@ awful.rules.rules = {
         name = {
           "Event Tester",  -- xev.
         },
+	icon_name = {
+	  "Picture-in-Picture",
+	},
         role = {
           "AlarmWindow",  -- Thunderbird's calendar.
           "ConfigManager",  -- Thunderbird's about:config.
@@ -635,7 +638,6 @@ awful.rules.rules = {
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = true }
     },
-
     -- Set Firefox to always map on the tag named "2" on screen 1.
     { 
         rule = {

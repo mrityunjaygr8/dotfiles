@@ -141,7 +141,7 @@ local TopPanel = function(s, offset)
 
 
 	s.clock_widget = wibox.widget.textclock(
-		'<span font="Iosevka Bold 11">%a %d-%m-%Y, %H:%M</span>',
+		'<span font="SF Pro Display Bold 11">%a %d-%m-%Y, %H:%M</span>',
 		1
 	)
 
@@ -237,7 +237,7 @@ local TopPanel = function(s, offset)
 	s.month_calendar      = awful.widget.calendar_popup.month({
 		start_sunday      = true,
 		spacing           = dpi(5),
-		font              = 'Iosevka 10',
+		font              = 'SF Pro Display Bold 11',
 		long_weekdays     = true,
 		margin            = dpi(5),
 		screen            = s,
