@@ -1,0 +1,9 @@
+font:
+        size: 14
+        normal:
+                family: IBM Plex Mono Medium
+                style: Regular
+
+        bold:
+                family: Iosevka
+                style: Bold
