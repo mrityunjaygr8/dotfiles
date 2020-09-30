@@ -114,8 +114,9 @@
 		"OnError": null
 	},
 	"FolderHistory": [
-		"\/mnt\/Storage\/Downloads\/ISO",
 		"\/mnt\/Storage\/Downloads",
+		"\/mnt\/Storage\/Downloads\/ISO",
+		"\/home\/mrityunjaygr8\/Downloads",
 		"\/home\/mrityunjaygr8"
 	],
 	"AutoSave": 1,
