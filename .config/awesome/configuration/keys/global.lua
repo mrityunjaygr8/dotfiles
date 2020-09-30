@@ -63,7 +63,7 @@ globalKeys = gears.table.join(
     end,
     {description = "focus previous by index", group = "client"}
   ),
-  awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
+  awful.key({ modkey, "Shift" }, "w", function () mymainmenu:show() end,
     {description = "show main menu", group = "awesome"}),
 
   -- Layout manipulation
@@ -142,7 +142,7 @@ globalKeys = gears.table.join(
     {description = "show the menubar", group = "launcher"}),
   -- my keybindings
   awful.key({}, "Print", function ()
-    awful.util.spawn("xfce4-screenshooter")
+    awful.util.spawn("kazam")
   end),
   awful.key({ modkey }, "e", function() awful.util.spawn("thunar") end),
   awful.key({ modkey }, "b", function() awful.util.spawn("firefox-developer-edition") end),
@@ -157,7 +157,10 @@ globalKeys = gears.table.join(
   awful.key({ }, "XF86AudioMute", function() 
     awful.util.spawn("amixer -q sset Master toggle")
   end),
-  -- awful.key({ modkey }, "w", run_wal), 
+  awful.key({ modkey }, "w", function ()
+    awful.util.spawn(string.format("%s/wallpaper.sh", os.getenv("HOME")))
+    beautiful.init(my_first_theme)
+  end), 
   awful.key({}, "XF86MonBrightnessUp", function()
     awful.util.spawn("xbacklight -inc 5")
   end),

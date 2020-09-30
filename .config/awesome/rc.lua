@@ -17,13 +17,16 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-
+local theme_path = gears.filesystem.get_configuration_dir() .. "themes/"
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
 
+print(gears.filesystem.get_configuration_dir())
+
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init(gears.filesystem.get_themes_dir() .. "gtk/theme.lua")
+beautiful.init(theme_path .. "my_theme/theme.lua")
+-- beautiful.font = "IBM Plex Sans Regular 11"
 
 -- Init all modules (You can add/remove active modules here)
 require("modules.auto-start")
