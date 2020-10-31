@@ -75,7 +75,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions docker)
+plugins=(git zsh-autosuggestions docker poetry)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,7 +106,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ########################## Path Addition ###############################
-PATH=$HOME/.gem/ruby/2.7.0/bin:$HOME/bin:$PATH
+PATH=$HOME/.gem/ruby/2.7.0/bin:$HOME/bin:$PATH:$HOME/.poetry/bin
 
 ########################## General Alias ###############################
 alias ll="ls -alt"

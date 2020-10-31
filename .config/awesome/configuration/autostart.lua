@@ -15,6 +15,7 @@ return {
     '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
     --'/usr/lib/x86_64-linux-gnu/libexec/polkit-kde-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
     'blueman-tray', -- bluetooth tray
+    'uget-ght', -- uget download manager
     -- 'dunst', -- notifiaction daemon
 
     -- Add applications that need to be killed between reloads
