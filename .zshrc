@@ -8,6 +8,9 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Setting options for history saving and sharing
+setopt share_history
+
 # Path to your oh-my-zsh installation.
 export ZSH="/home/mrityunjaygr8/.oh-my-zsh"
 
@@ -106,7 +109,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 ########################## Path Addition ###############################
-PATH=$HOME/.gem/ruby/2.7.0/bin:$HOME/bin:$PATH:$HOME/.poetry/bin
+PATH=$HOME/.gem/ruby/2.7.0/bin:$HOME/bin:$PATH:$HOME/.poetry/bin:$PATH
 
 ########################## General Alias ###############################
 alias ll="ls -alt"
@@ -116,6 +119,7 @@ alias netstat="ss"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 alias wdil="history | grep"
 alias please="sudo !!"
+alias scp="rsync --verbose --progress --partial"
 
 ### Pipe aliases
 alias -g L="| less"
@@ -157,7 +161,7 @@ alias free='free -h'                      # show human closest readable size
 alias psmem='ps auxf | sort -nr -k 4'
 alias psmem10='ps auxf | sort -nr -k 4 | head -10'
 
-## get top process eating cpu ##
+## get top process eating cpu #:$PATH#
 alias pscpu='ps auxf | sort -nr -k 3'
 alias pscpu10='ps auxf | sort -nr -k 3 | head -10'
 
@@ -185,7 +189,7 @@ export PROJECT_HOME=$HOME/Devel
 source /home/mrityunjaygr8/.local/bin/virtualenvwrapper.sh 
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 export GOPATH=$HOME/go
-
+PATH=$HOME/.cargo/bin:$PATH
 
 export TERM=xterm-256color
 
@@ -237,6 +241,22 @@ ex ()
   fi
 }
 
+cd_with_fzf() {
+	fd -t d -L . $HOME | fzf --preview="tree -L 1 {}" --bind="space:toggle-preview" --preview-window=:hidden
+}
+
+open_with_fzf() {
+	fd -t f -H -I -L | fzf -m --preview="xdg-mime query default {}" | xargs -ro -d "\n" xdg-open 2>&-
+}
+
+zle -N cd_with_fzf
+zle -N open_with_fzf
+
+bindkey "^f" cd_with_fzf
+bindkey "^o" open_with_fzf
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
