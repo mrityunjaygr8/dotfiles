@@ -96,6 +96,11 @@ else
   export EDITOR='nvim'
 fi
 
+# fzf default overrides
+export FZF_DEFAULT_COMMAND="fd -L . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -L -t d . $HOME"
+
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -241,19 +246,6 @@ ex ()
   fi
 }
 
-cd_with_fzf() {
-	fd -t d -L . $HOME | fzf --preview="tree -L 1 {}" --bind="space:toggle-preview" --preview-window=:hidden
-}
-
-open_with_fzf() {
-	fd -t f -H -I -L | fzf -m --preview="xdg-mime query default {}" | xargs -ro -d "\n" xdg-open 2>&-
-}
-
-zle -N cd_with_fzf
-zle -N open_with_fzf
-
-bindkey "^f" cd_with_fzf
-bindkey "^o" open_with_fzf
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
