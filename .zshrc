@@ -31,11 +31,11 @@ TERM=xterm-256color
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
 source $HOME/.local/bin/virtualenvwrapper.sh
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 
 # GO-Path
 export GOPATH=$HOME/go
-PATH=$HOME/.gem/ruby/3.7.0/bin:$HOME/bin:$HOME/.poetry/bin:$HOME/.cargo/bin:$PATH
+PATH=$HOME/.gem/ruby/3.7.0/bin:$HOME/bin:$HOME/.poetry/bin:$HOME/.cargo/bin:$HOME/.npm-global/bin:$PATH
 
 # git-style diff
 function gdiff() { diff -u $@ | colordiff | less -R; }
