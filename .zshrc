@@ -13,7 +13,7 @@ bindkey -v
 bindkey -M main '^[OA' history-substring-search-up
 bindkey -M main '^[OB' history-substring-search-down
 bindkey -M main '^[[A' history-substring-search-up
-bindkey -M main '^[[B' history-substring-search-up
+bindkey -M main '^[[B' history-substring-search-down
 
 
 # Few Exports
